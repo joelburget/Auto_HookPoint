@@ -325,6 +325,7 @@ class HookedTransformerAdapter(HookedTransformer):
                 residual = block(
                     residual, attention_mask=attention_mask, **kwargs
                 )  # [batch, pos, d_model]
+                residual = residual.to(self.cfg.device)
                 if self.adapter_cfg.inter_block_fn is not None:
                     residual = self.adapter_cfg.inter_block_fn(residual)
                 # we use a function to do ensure residual is a Tensor
